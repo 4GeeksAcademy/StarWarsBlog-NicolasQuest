@@ -1,6 +1,5 @@
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { NavLink } from "react-router-dom";
-import { useParams } from "react-router-dom";
+
 import SearchBar from "./SearchBar";
 
 export const Navbar = () => {

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import SideBar from "../components/SideBar.jsx";
+
 import gifImage from "../assets/img/gif.gif";
 import NavbarTop from "../components/NavbarTop.jsx";
 
