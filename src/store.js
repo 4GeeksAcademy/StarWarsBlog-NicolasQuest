@@ -1,32 +1,42 @@
-export const initialStore=()=>{
-  return{
+const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+export const initialStore = () => {
+  return {
     message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ]
-  }
-}
+    favorites: savedFavorites,
+  };
+};
 
 export default function storeReducer(store, action = {}) {
-  switch(action.type){
-    case 'add_task':
+  switch (action.type) {
+    // porque se recomienda hacer un useEffect fuera de local storage y no hacer el update desde el reducer?
 
-      const { id,  color } = action.payload
-
+    case "add_favorites":
+      const updatedFavorites = [...store.favorites, action.payload];
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       return {
         ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
+        favorites: updatedFavorites,
       };
+    case "delete_all_favorites":
+      localStorage.setItem("favorites", JSON.stringify([]));
+      return {
+        ...store,
+        favorites: [],
+      };
+
+      case "delete_favorites":
+        
+        const removeFavorite = store.favorites.filter(item => item && item !== action.payload);
+      
+        localStorage.setItem("favorites", JSON.stringify(removeFavorite));
+      
+        return {
+          ...store,
+          favorites: removeFavorite
+        }
+
     default:
-      throw Error('Unknown action.');
-  }    
+      throw Error("Unknown action.");
+  }
 }

@@ -10,9 +10,17 @@ const Main = () => {
         <React.StrictMode>  
             {/* Provide global state to all components */}
             <StoreProvider> 
-                {/* Set up routing for the application */} 
-                <RouterProvider router={router}>
-                </RouterProvider>
+                {/* Set up routing for the application */}
+                <div className='row'>
+                    <div className="col-1 bg"></div>
+                    <div className="col-10 bg-main px-4">
+                    <RouterProvider router={router}>
+                    </RouterProvider>
+                    </div>
+                    <div className="col-1 bg"></div>
+                </div> 
+               
+            
             </StoreProvider>
         </React.StrictMode>
     );
