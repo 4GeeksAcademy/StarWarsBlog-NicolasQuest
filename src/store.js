@@ -9,8 +9,7 @@ export const initialStore = () => {
 
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
-    // porque se recomienda hacer un useEffect fuera de local storage y no hacer el update desde el reducer?
-
+  
     case "add_favorites":
       const updatedFavorites = [...store.favorites, action.payload];
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));

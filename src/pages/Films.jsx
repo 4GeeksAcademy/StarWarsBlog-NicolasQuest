@@ -6,23 +6,8 @@ const Films = () => {
 
   useEffect(() => {
     const storedFilms = localStorage.getItem("swapi_films");
-
     if (storedFilms && storedFilms !== "undefined") {
       setFilms(JSON.parse(storedFilms));
-    } else {
-      fetch("https://www.swapi.tech/api/films")
-        .then((response) => {
-          if (!response.ok) throw new Error(response.statusText);
-          return response.json();
-        })
-        .then((data) => {
-         
-          setFilms(data.result);
-          localStorage.setItem("swapi_films", JSON.stringify(data.result));
-        })
-        .catch((error) =>
-          console.error("couldn't access to the planets, error: \n", error)
-        );
     }
   }, []);
 
@@ -53,7 +38,7 @@ const Films = () => {
                   className="rounded"
                   
                 />
-              </li>
+              </li> 
             ))}
           </ul>
         </div>

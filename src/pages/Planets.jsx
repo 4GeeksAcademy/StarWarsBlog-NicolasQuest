@@ -9,29 +9,13 @@ const Planets = () => {
   const [planets, setPlanets] = useState([]);
 
 
-     useEffect(() => {
-       const storedPlanets = localStorage.getItem("swapi_film");
-   
-       if (storedPlanets && storedPlanets !== "undefined") {
-         setPlanets(JSON.parse(storedPlanets));
-       }
-       else {
-         fetch("https://swapi.tech/api/planets/")
-         .then((response) => {
-           if (!response.ok) {
-             throw new Error(response.status);
-           }
-           return response.json();
-         })
-         .then((data) => {
-           setPlanets(data.results)
-           localStorage.setItem("swapi_planets", JSON.stringify(data.results))
-       })
-         .catch((error) =>
-           console.error("couldn't access to the planets, error: \n", error)
-         );
-       }
-     }, []);
+   useEffect(() => {
+    const storedPlanets = localStorage.getItem("swapi_planets");
+    if (storedPlanets && storedPlanets !== "undefined") {
+      setPlanets(JSON.parse(storedPlanets));
+    }
+  }, []);  
+
   return (
     <div className="row  mt-5 ">
       <div className="col-2 d-flex">
@@ -95,21 +79,14 @@ const Planets = () => {
                           Databank{" "}
                         </p>
                       </div>
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/9/9b/USSR_Star.png"
-                        alt="icono Starwars"
-                        style={{
-                          width: "1.8rem",
-                          height: "1.4rem",
-                          objectFit: "cover",
-                          cursor: "pointer",
-                          filter:
-                            "invert(25%) sepia(81%) saturate(10097%) hue-rotate(342deg) brightness(65%) contrast(101%)",
-                        }}
-                        className="pe-2 ms-auto star"
+                      
+                       <button
+                        className="pe-2 ms-auto star btn btn-outline-success h-75 w-25 btn-sm"
                         onClick={() => {
                           if (store.favorites.includes(planet.name)) {
-                            alert(`${planet.name} is already in your favorites list`);
+                            alert(
+                              `${planet.name} is already in your favorites list`
+                            );
                             return;
                           }
 
@@ -117,8 +94,9 @@ const Planets = () => {
                             type: "add_favorites",
                             payload: planet.name,
                           });
-                        }}
-                      />
+                        }}>
+                          ☆
+                      </button>
                     </div>
                   </div>
                 </div>

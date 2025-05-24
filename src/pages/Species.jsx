@@ -10,28 +10,11 @@ const Species = () => {
 
 
      useEffect(() => {
-       const storedSpecies = localStorage.getItem("swapi_species");
-   
-       if (storedSpecies && storedSpecies !== "undefined") {
-         setSpecies(JSON.parse(storedSpecies));
-       }
-       else {
-         fetch("https://swapi.tech/api/species/")
-         .then((response) => {
-           if (!response.ok) {
-             throw new Error(response.status);
-           }
-           return response.json();
-         })
-         .then((data) => {
-           setSpecies(data.results)
-           localStorage.setItem("swapi_species", JSON.stringify(data.results))
-       })
-         .catch((error) =>
-           console.error("couldn't access to the species, error: \n", error)
-         );
-       }
-     }, []);;
+        const storedSpecies = localStorage.getItem("swapi_species");
+        if (storedSpecies && storedSpecies !== "undefined") {
+          setSpecies(JSON.parse(storedSpecies));
+        }
+      }, []);
 
   return (
     <div className="row  mt-5 ">
@@ -96,21 +79,13 @@ const Species = () => {
                           Databank{" "}
                         </p>
                       </div>
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/9/9b/USSR_Star.png"
-                        alt="icono Starwars"
-                        style={{
-                          width: "1.8rem",
-                          height: "1.4rem",
-                          objectFit: "cover",
-                          cursor: "pointer",
-                          filter:
-                            "invert(25%) sepia(81%) saturate(10097%) hue-rotate(342deg) brightness(65%) contrast(101%)",
-                        }}
-                        className="pe-2 ms-auto star"
+                      <button
+                        className="pe-2 ms-auto star btn btn-outline-success h-75 w-25 btn-sm"
                         onClick={() => {
                           if (store.favorites.includes(specie.name)) {
-                            alert(`${specie.name} is already in your favorites list`);
+                            alert(
+                              `${specie.name} is already in your favorites list`
+                            );
                             return;
                           }
 
@@ -118,8 +93,9 @@ const Species = () => {
                             type: "add_favorites",
                             payload: specie.name,
                           });
-                        }}
-                      />
+                        }}>
+                          ☆
+                      </button>
                     </div>
                   </div>
                 </div>

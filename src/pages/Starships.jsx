@@ -8,30 +8,12 @@ const Starships = () => {
   const navigate = useNavigate();
   const [starships, setStarships] = useState([]);
 
-
-     useEffect(() => {
-       const storedStarships = localStorage.getItem("swapi_film");
-   
-       if (storedStarships && storedStarships !== "undefined") {
-         setStarships(JSON.parse(storedStarships));
-       }
-       else {
-         fetch("https://swapi.tech/api/starships/")
-         .then((response) => {
-           if (!response.ok) {
-             throw new Error(response.status);
-           }
-           return response.json();
-         })
-         .then((data) => {
-           setStarships(data.results)
-           localStorage.setItem("swapi_starships", JSON.stringify(data.results))
-       })
-         .catch((error) =>
-           console.error("couldn't access to the starships, error: \n", error)
-         );
-       }
-     }, []);;
+ useEffect(() => {
+    const storedStarships = localStorage.getItem("swapi_starships");
+    if (storedStarships && storedStarships !== "undefined") {
+      setStarships(JSON.parse(storedStarships));
+    }
+  }, []);
 
   return (
     <div className="row  mt-5 ">
@@ -97,21 +79,13 @@ const Starships = () => {
                           Databank{" "}
                         </p>
                       </div>
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/9/9b/USSR_Star.png"
-                        alt="icono Starwars"
-                        style={{
-                          width: "1.8rem",
-                          height: "1.4rem",
-                          objectFit: "cover",
-                          cursor: "pointer",
-                          filter:
-                            "invert(25%) sepia(81%) saturate(10097%) hue-rotate(342deg) brightness(65%) contrast(101%)",
-                        }}
-                        className="pe-2 ms-auto star"
+                     <button
+                        className="pe-2 ms-auto star btn btn-outline-success h-75 w-25 btn-sm"
                         onClick={() => {
                           if (store.favorites.includes(ship.name)) {
-                            alert(`${ship.name} is already in your favorites list`);
+                            alert(
+                              `${ship.name} is already in your favorites list`
+                            );
                             return;
                           }
 
@@ -119,8 +93,9 @@ const Starships = () => {
                             type: "add_favorites",
                             payload: ship.name,
                           });
-                        }}
-                      />
+                        }}>
+                          ☆
+                      </button>
                     </div>
                   </div>
                 </div>

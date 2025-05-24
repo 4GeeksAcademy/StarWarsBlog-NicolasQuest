@@ -10,25 +10,8 @@ const Characters = () => {
 
   useEffect(() => {
     const storedCharacters = localStorage.getItem("swapi_characters");
-
     if (storedCharacters && storedCharacters !== "undefined") {
       setCharacters(JSON.parse(storedCharacters));
-    }
-    else {
-      fetch("https://swapi.tech/api/people/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCharacters(data.results)
-        localStorage.setItem("swapi_characters", JSON.stringify(data.results))
-    })
-      .catch((error) =>
-        console.error("couldn't access to the characters, error: \n", error)
-      );
     }
   }, []);
 

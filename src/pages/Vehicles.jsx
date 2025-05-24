@@ -10,28 +10,12 @@ const Vehicles = () => {
 
   
        useEffect(() => {
-         const storedVehicles = localStorage.getItem("swapi_film");
-     
-         if (storedVehicles && storedVehicles !== "undefined") {
-           setVehicles(JSON.parse(storedVehicles));
-         }
-         else {
-           fetch("https://swapi.tech/api/vehicles/")
-           .then((response) => {
-             if (!response.ok) {
-               throw new Error(response.status);
-             }
-             return response.json();
-           })
-           .then((data) => {
-             setVehicles(data.results)
-             localStorage.setItem("swapi_vehicles", JSON.stringify(data.results))
-         })
-           .catch((error) =>
-             console.error("couldn't access to the vehicles, error: \n", error)
-           );
-         }
-       }, []);
+          const storedVehicles = localStorage.getItem("swapi_vehicles");
+          if (storedVehicles && storedVehicles !== "undefined") {
+            setVehicles(JSON.parse(storedVehicles));
+          }
+        }, []);
+      
 
   return (
     <div className="row mt-5">
@@ -97,18 +81,8 @@ const Vehicles = () => {
                           Databank
                         </p>
                       </div>
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/9/9b/USSR_Star.png"
-                        alt="icono Starwars"
-                        style={{
-                          width: "1.8rem",
-                          height: "1.4rem",
-                          objectFit: "cover",
-                          cursor: "pointer",
-                          filter:
-                            "invert(25%) sepia(81%) saturate(10097%) hue-rotate(342deg) brightness(65%) contrast(101%)",
-                        }}
-                        className="pe-2 ms-auto star"
+                      <button
+                        className="pe-2 ms-auto star btn btn-outline-success h-75 w-25 btn-sm"
                         onClick={() => {
                           if (store.favorites.includes(vehicle.name)) {
                             alert(
@@ -121,8 +95,9 @@ const Vehicles = () => {
                             type: "add_favorites",
                             payload: vehicle.name,
                           });
-                        }}
-                      />
+                        }}>
+                          ☆
+                      </button>
                     </div>
                   </div>
                 </div>
